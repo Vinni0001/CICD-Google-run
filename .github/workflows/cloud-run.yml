@@ -6,7 +6,7 @@ on:
 name: Build and Deploy to Cloud Run
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  SERVICE: helloworld-nodejs
+  SERVICE: helloworld-website
   REGION: us-central1
 
 jobs:
@@ -38,12 +38,12 @@ jobs:
 
     - name: Build and Push Container
       run: |-
-        docker build -t gcr.io/google-samples/hello-app:1.0 .
-        docker push gcr.io/google-samples/hello-app:1.0
+        docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }} .
+        docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }}
     - name: Deploy to Cloud Run
       run: |-
         gcloud run deploy ${{ env.SERVICE }} \
           --region ${{ env.REGION }} \
-          --image gcr.io/google-samples/hello-app:1.0 \
+          --image gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }} \
           --platform "managed" \
           --quiet
