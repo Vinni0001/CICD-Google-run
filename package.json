@@ -1,5 +1,5 @@
 {
-  "name": "CICD-Google-run",
+  "name": "cicd-google-run",
   "version": "1.0.0",
   "description": "This is the CICD google run task repository",
   "main": "index.js",
