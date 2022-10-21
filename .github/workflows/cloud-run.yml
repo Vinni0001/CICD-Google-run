@@ -47,8 +47,5 @@ jobs:
           --image gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }} \
           --platform "managed" \
           --quiet
-          
-  bindings:
-    - members:
-      - allUsers
-      role: roles/run.invoker
+    - name: Set all user permissions to cloud run invoker
+      run: gcloud run services set-iam-policy helloworld-website policy.yaml
