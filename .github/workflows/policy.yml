@@ -1,9 +1,0 @@
-on:
-  push:
-    branches:
-    - master
-
-bindings:
-  - members:
-    - allUsers
-    role: roles/run.invoker
